@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 require('dotenv').config()
 const authRoutes = require('./routes/auth.js')
+const userRoutes = require('./routes/user.js')
 const { connectDB } = require('./config/db.js')
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(bodyParser.json())
 
 //middleware
 app.use('/api', authRoutes)
+app.use('/api', userRoutes)
 
 const port = process.env.PORT
 app.listen(port)

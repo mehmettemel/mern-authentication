@@ -1,5 +1,10 @@
 const express = require('express')
-const { signup, signup2, accountActivation } = require('../controllers/auth')
+const {
+  signup,
+  signup2,
+  accountActivation,
+  signin,
+} = require('../controllers/auth')
 const { runValidation } = require('../validators')
 const {
   userSignupValidator,
