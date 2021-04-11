@@ -6,6 +6,7 @@ import { authenticate, isAuth } from './helpers'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.min.css'
 import Google from './Google'
+import Facebook from './Facebook'
 const Signin = ({ history }) => {
   const [values, setValues] = useState({
     email: '',
@@ -16,6 +17,14 @@ const Signin = ({ history }) => {
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value })
+  }
+
+  const informParent = (response) => {
+    authenticate(response, () => {
+      isAuth() && isAuth().role === 'admin'
+        ? history.push('/admin')
+        : history.push('/private')
+    })
   }
 
   const clickSubmit = (event) => {
@@ -83,7 +92,9 @@ const Signin = ({ history }) => {
       <ToastContainer />
       {isAuth() ? <Redirect to='/' /> : null}
       <h1 className='p-5'>Sign In</h1>
-      <Google />
+      <Google informParent={informParent} />
+      <Facebook informParent={informParent} />
+
       {signinForm()}
       <Link
         to='/auth/password/forgot'
